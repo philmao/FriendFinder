@@ -180,58 +180,56 @@
 
   <script type="text/javascript">
 
-    // $(document).ready(function() {
+    $('#submit-button').on('click', function(){
 
-      $('#submit-button').on('click', function(){
+      var newFriend = {
+        name: $('#name').val().trim(),
+        photo: $('#photo').val().trim(),
+        scores: [ 
+          parseInt($('#question1').val()),
+          parseInt($('#question2').val()),
+          parseInt($('#question3').val()),
+          parseInt($('#question4').val()),
+          parseInt($('#question5').val()),
+          parseInt($('#question6').val()),
+          parseInt($('#question7').val()),
+          parseInt($('#question8').val()),
+          parseInt($('#question9').val()),
+          parseInt($('#question10').val())
+        ]
+      }
+      // Check inputs
+      if(newFriend.name === "" ||
+        newFriend.photo === "" ||
+        isNaN(newFriend.scores[0]) ||
+        isNaN(newFriend.scores[1]) ||
+        isNaN(newFriend.scores[2]) ||
+        isNaN(newFriend.scores[3]) ||
+        isNaN(newFriend.scores[4]) ||
+        isNaN(newFriend.scores[5]) ||
+        isNaN(newFriend.scores[6]) ||
+        isNaN(newFriend.scores[7]) ||
+        isNaN(newFriend.scores[8]) ||
+        isNaN(newFriend.scores[9])
+        ) {
+        alert("Please fill out all fields before submitting!");
+        return;
+      }
+      // console.log(newFriend);
 
-        var newFriend = {
-          name: $('#name').val().trim(),
-          photo: $('#photo').val().trim(),
-          scores: [ 
-            parseInt($('#question1').val()),
-            parseInt($('#question2').val()),
-            parseInt($('#question3').val()),
-            parseInt($('#question4').val()),
-            parseInt($('#question5').val()),
-            parseInt($('#question6').val()),
-            parseInt($('#question7').val()),
-            parseInt($('#question8').val()),
-            parseInt($('#question9').val()),
-            parseInt($('#question10').val())
-          ]
-        }
-        // Check inputs
-        if(newFriend.name === "" ||
-          newFriend.photo === "" ||
-          isNaN(newFriend.scores[0]) ||
-          isNaN(newFriend.scores[1]) ||
-          isNaN(newFriend.scores[2]) ||
-          isNaN(newFriend.scores[3]) ||
-          isNaN(newFriend.scores[4]) ||
-          isNaN(newFriend.scores[5]) ||
-          isNaN(newFriend.scores[6]) ||
-          isNaN(newFriend.scores[7]) ||
-          isNaN(newFriend.scores[8]) ||
-          isNaN(newFriend.scores[9])
-          ) {
-          alert("Please fill out all fields before submitting!");
-          return;
-        }
-        console.log(newFriend);
+      var url = document.location.origin + "/api/friends";
+      // console.log(url);
 
-        var url = document.location.origin + "/api/new";
-        console.log(url);
+      $.post(url, newFriend).then(function(response){
+        // console.log(response);
 
-        $.post(url, newFriend).then(function(response){
-          console.log(response);
-
-          //modal pop up
-          $('#match-name').text(response.name);
-          $('#match-img').attr('src', response.photo);
-          $('#myModal').modal('show');
-        });
+        //modal pop up
+        $('#match-name').text(response.name);
+        $('#match-img').attr('src', response.photo);
+        $('#myModal').modal('show');
       });
-    // });
+    });
+
   </script>
 
 </body>

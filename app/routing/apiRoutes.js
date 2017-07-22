@@ -27,15 +27,15 @@ module.exports = function(app) {
 	// ...the JSON is pushed to the appropriate JavaScript array
 	// ---------------------------------------------------------------------------
 
-	app.post("/api/new", function(req, res) {
+	app.post("/api/friends", function(req, res) {
 
 		var newEntry = req.body;
 
 		var bestMatch = 0;
 		var lowTotal = 50;
 
-		console.log(friends);
-		console.log(newEntry);
+		// console.log(friends);
+		// console.log(newEntry);
 
 		for(var i = 0; i < friends.length; i++) {
 
@@ -43,17 +43,17 @@ module.exports = function(app) {
 			var delta = 0;
 
 			for(var j = 0; j < 10; j++) {
-				console.log(friends[i].name);
+				// console.log(friends[i].name);
 				delta = Math.abs(friends[i].scores[j] - newEntry.scores[j]);
-				console.log(friends[i].scores[j], newEntry.scores[j], delta);
+				// console.log(friends[i].scores[j], newEntry.scores[j], delta);
 				total += delta;
-				console.log(total);
+				// console.log(total);
 
 			};
 			if(total < lowTotal) {
 				lowTotal = total;
 				bestMatch = i;
-				console.log("Best: ", lowTotal, bestMatch);
+				// console.log("Best: ", lowTotal, bestMatch);
 			}
 		}
 
